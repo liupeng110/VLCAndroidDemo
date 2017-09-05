@@ -127,6 +127,7 @@ public class VLCPlayerActivity extends AppCompatActivity {
             surfaceHolder.setKeepScreenOn(true);
             mediaPlayer = new MediaPlayer(libvlc);
             vlcVout = mediaPlayer.getVLCVout();
+
             mediaPlayer.setRate(1.5f);
             callback = new IVLCVout.Callback() {
                 @Override
@@ -255,6 +256,7 @@ public class VLCPlayerActivity extends AppCompatActivity {
     }
 
     private void pausePlay() {
+        Log.d("VideoPlayer", "暂停播放-------pausePlay()");
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
             imgPlay.setBackgroundResource(R.drawable.videoviewx_play);
@@ -269,6 +271,7 @@ public class VLCPlayerActivity extends AppCompatActivity {
     }
 
     private void resumePlay() {
+        Log.d("VideoPlayer", "继续播放-------resumePlay()");
         vlcVout.setVideoView(surfaceView);
         vlcVout.attachViews();
 
@@ -282,8 +285,8 @@ public class VLCPlayerActivity extends AppCompatActivity {
     protected void onDestroy() {
         try {
             super.onDestroy();
-
             pausePlay();
+            Log.d("VideoPlayer", "结束播放-------release()");
             mediaPlayer.release();
         } catch (Exception e) {
             Log.d("vlc-destroy", e.toString());
